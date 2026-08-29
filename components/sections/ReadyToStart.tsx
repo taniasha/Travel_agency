@@ -4,7 +4,7 @@ export default function ReadyToStart() {
   return (
     <section 
       className="relative w-full py-12 lg:py-22 md:py-10 bg-cover bg-center bg-no-repeat"
-      style={{ backgroundImage: "url('/images/next.png')" }}
+      style={{ backgroundImage: "url('/images/ready-bg.webp')" }}
     >
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 text-center text-white">
         <h1 className="text-5xl lg:text-6xl sm:text-5xl md:text-5xl font-medium tracking-wider font-alternate sm:mb-4">

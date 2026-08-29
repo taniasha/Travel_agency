@@ -209,6 +209,7 @@ export default function HowDoYouTravel() {
                   alt={item.title}
                   fill
                   sizes="(max-width: 768px) 30vw, 15vw"
+                  loading="lazy"
                   className="object-cover "
                 />
 
@@ -237,6 +238,7 @@ export default function HowDoYouTravel() {
                     alt={item.title}
                     fill
                     sizes="(max-width: 768px) 92vw"
+                    loading="lazy"
                     className={`object-cover ${item.pos ?? "object-center"}`}
                   />
                   <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition" />
@@ -263,6 +265,7 @@ export default function HowDoYouTravel() {
                     alt={item.title}
                     fill
                     sizes="(min-width: 768px) 20vw"
+                    loading="lazy"
                     className="object-cover  
                   object-left"
                   />

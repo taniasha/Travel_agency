@@ -37,14 +37,13 @@ export default function Hero() {
       {/* Desktop Video */}
       <video
         ref={videoRef}
-        className={`absolute inset-0 hidden h-full w-full object-cover md:block transition-opacity duration-500 ${
-          fadeIn ? "opacity-100" : "opacity-0"
-        }`}
+        className={`absolute inset-0 hidden h-full w-full object-cover md:block transition-opacity duration-500 ${fadeIn ? "opacity-100" : "opacity-0"
+          }`}
         src="/videos/new-video.mp4"
         muted
         loop
         playsInline
-        preload="auto"
+        preload="metadata"
         poster="/images/banner.jpeg"
       />
 
@@ -55,7 +54,8 @@ export default function Hero() {
         muted
         loop
         playsInline
-        preload="auto"
+        preload="none"
+        poster="/images/banner.jpeg"
       />
 
       {/* Overlay */}
@@ -72,10 +72,10 @@ export default function Hero() {
         </p> */}
         <div className="flex flex-col sm:flex-row gap-4 mt-4">
           <button onClick={() => {
-              const el = document.getElementById("journey");
-                if (el) el.scrollIntoView({ behavior: "smooth" });
-              }}
-             className="
+            const el = document.getElementById("journey");
+            if (el) el.scrollIntoView({ behavior: "smooth" });
+          }}
+            className="
   relative overflow-hidden
   rounded-xs border border-white/70
 
@@ -96,10 +96,10 @@ export default function Hero() {
   hover:before:opacity-100
 "
 
-            >
-              <span className="relative z-10" >
-                JOURNEYS THAT INSPIRE</span>
-            </button>
+          >
+            <span className="relative z-10" >
+              JOURNEYS THAT INSPIRE</span>
+          </button>
         </div>
       </div>
 
