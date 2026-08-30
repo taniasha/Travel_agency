@@ -96,7 +96,7 @@ export default function  Testimonials() {
       </h2>
 
       {/* Slider */}
-      <div className="relative overflow-hidden max-w-7xl mx-auto">
+      <div className="relative overflow-hidden mx-auto">
         <div
           className="flex transition-transform duration-1000 ease-in-out"
           style={{
@@ -122,7 +122,7 @@ export default function  Testimonials() {
 
                 {/* Quote */}
                 <div className="max-w-xs sm:max-w-md mx-auto">
-                  <span className="text-2xl sm:text-3xl md:text-4xl text-emerald-600 mb-2 sm:mb-4 block">
+                  <span className="sm:text-3xl md:text-4xl lg:text-5xl xl:text-8xl text-emerald-600 mb-2 sm:mb-4 block">
                     {item.quote}
                   </span>
 

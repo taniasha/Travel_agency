@@ -1,6 +1,6 @@
 "use client";
 
-import  Link  from "next/link";
+import Link from "next/link";
 import Image from "next/image";
 
 interface Trip {
@@ -12,14 +12,14 @@ interface Trip {
   duration: string;
   priceFrom?: string;
   description: string;
-  country?:string;
+  country?: string;
 }
 
 const TRIPS: Trip[] = [
   {
-    country:"ITALY",
+    country: "ITALY",
     destinationSlug: "italy",
-    packageSlug:"ULTIMATE_ITALIAN_HONEYMOON",
+    packageSlug: "ULTIMATE_ITALIAN_HONEYMOON",
     imageUrl: "/images/THEULTIMATEITALIANHONEYMOON-COVER.webp",
     title: "THE ULTIMATE ITALIAN HONEYMOON: VINTAGE ROMANCE, PRIVATE EXPERIENCES & COASTAL ELEGANCE",
     duration: "12 NIGHTS",
@@ -27,40 +27,40 @@ const TRIPS: Trip[] = [
     description: "This extraordinary honeymoon journey is designed for couples seeking a seamless blend of romance, privacy, and timeless Italian elegance across the country’s most iconic destinations.",
   },
   {
-    country:"NEW ZEALAND",
-    destinationSlug:"new-zealand",
-    packageSlug:"PRIVATE_HELI_JOURNEY_SOUTH_ISLAND",
+    country: "NEW ZEALAND",
+    destinationSlug: "new-zealand",
+    packageSlug: "PRIVATE_HELI_JOURNEY_SOUTH_ISLAND",
     imageUrl: "/images/PRIVATEHELIJOURNEY-COVER.webp",
-        title: "PRIVATE HELI JOURNEY: ALPINE WONDERS TO MARLBOROUGH INDULGENCE",
+    title: "PRIVATE HELI JOURNEY: ALPINE WONDERS TO MARLBOROUGH INDULGENCE",
     duration: "10 NIGHTS",
     priceFrom: "$15,900 per person (excluding international flights)",
-        description: "This extraordinary South Island journey is designed for travellers seeking the pinnacle of privacy, exclusivity, and immersive natural beauty—experienced through seamless helicopter transfers and handpicked luxury retreats.",
+    description: "This extraordinary South Island journey is designed for travellers seeking the pinnacle of privacy, exclusivity, and immersive natural beauty—experienced through seamless helicopter transfers and handpicked luxury retreats.",
   },
   {
-    country:"MOROCCO",
-      destinationSlug:"morocco",
-      packageSlug:"BEYOND_THE_ATLAS",
+    country: "MOROCCO",
+    destinationSlug: "morocco",
+    packageSlug: "BEYOND_THE_ATLAS",
     imageUrl: "/images/BEYONDTHEATLAS-COVER.webp",
-      title: "BEYOND THE ATLAS: MOROCCO’S HIDDEN DESERT KINGDOM",
-        duration: "10 NIGHTS",
-        priceFrom:"$11,400 per person (excluding international flights)",
-        description: "This extraordinary journey ventures beyond Morocco’s well-known cities into the country’s most remote desert landscapes, ancient caravan routes, and hidden oasis valleys.",
-   },
+    title: "BEYOND THE ATLAS: MOROCCO’S HIDDEN DESERT KINGDOM",
+    duration: "10 NIGHTS",
+    priceFrom: "$11,400 per person (excluding international flights)",
+    description: "This extraordinary journey ventures beyond Morocco’s well-known cities into the country’s most remote desert landscapes, ancient caravan routes, and hidden oasis valleys.",
+  },
   {
-    country:"JAPAN",
-      destinationSlug:"japan",
-      packageSlug:"YIN_YAG_JAPAN",
+    country: "JAPAN",
+    destinationSlug: "japan",
+    packageSlug: "YIN_YAG_JAPAN",
     imageUrl: "/images/YIN&YANGOFJAPAN-COVER.webp",
-     title: "YIN & YANG OF JAPAN: Tokyo to Kyoto Slow Luxury",
-        duration: "8 Nights",
-        priceFrom: "$14,500 per person (excluding international flights)",
-        description: "This journey explores the beautiful contrast that defines Japan — the vibrant energy of Tokyo and the serene traditions of Kyoto...",
-       },
+    title: "YIN & YANG OF JAPAN: Tokyo to Kyoto Slow Luxury",
+    duration: "8 Nights",
+    priceFrom: "$14,500 per person (excluding international flights)",
+    description: "This journey explores the beautiful contrast that defines Japan — the vibrant energy of Tokyo and the serene traditions of Kyoto...",
+  },
 ];
 
 export default function DestinationSlider() {
   return (
-    <section  id="journey"
+    <section id="journey"
       className=" sm:py-20 py-10 md:py-12 bg-cover bg-center bg-no-repeat"
       style={{ backgroundImage: "url('/images/Backdrop.webp')" }}
     >
@@ -84,17 +84,17 @@ export default function DestinationSlider() {
           <div className="hidden lg:flex relative min-w-[100px] aspect-5/5 overflow-hidden shrink-0">
             <div className="text-white flex flex-col mt-12 pb-8 px-0">
               <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium tracking-[1.2] font-alternate">
-                 THE INSIDER'S 2026
+                THE INSIDER'S 2026
               </h2>
               <p className="mt-4 lg:text-xl sm:text-sm italic text-white/70">
-                  Exclusive access to the world's best-kept secrets...              </p>
+                Exclusive access to the world's best-kept secrets...              </p>
             </div>
           </div>
 
           {TRIPS.map((trip, index) => (
             <div
               key={index}
-className="group relative min-w-[140px] sm:min-w-[180px] md:min-w-[220px] lg:min-w-[280px] aspect-[2/4] overflow-hidden shrink-0"            >
+              className="group relative min-w-[140px] sm:min-w-[180px] md:min-w-[220px] lg:min-w-[280px] aspect-[2/4] overflow-hidden shrink-0"            >
               {/* Image */}
               <Image
                 src={trip.imageUrl}
@@ -116,9 +116,9 @@ className="group relative min-w-[140px] sm:min-w-[180px] md:min-w-[220px] lg:min
 
               {/* Content */}
               <div className="absolute bottom-0 left-0 w-full p-2 sm:p-3 md:p-4 transition-all duration-300">
-                   <p className="mt-2 sm:mt-3 text-xs font-bold leading-5 mb-2 text-white/80">
-                    {trip.country}
-                  </p>
+                <p className="mt-2 sm:mt-3 text-xs font-bold leading-5 mb-2 text-white/80">
+                  {trip.country}
+                </p>
                 <h1 className="font-brandon text-xxs sm:text-sm font-semibold tracking-widest text-white line-clamp-2 font-alternate font-bold">
                   {trip.title}
                 </h1>
@@ -138,7 +138,7 @@ className="group relative min-w-[140px] sm:min-w-[180px] md:min-w-[220px] lg:min
                 </div>
 
                 {/* CTA */}
-                <Link  href={`/experience-types/destination/${trip.destinationSlug}/packages/${trip.packageSlug}`}
+                <Link href={`/experience-types/destination/${trip.destinationSlug}/packages/${trip.packageSlug}`}
                   className="
                   inline-block
                     mt-2 sm:mt-4
@@ -162,7 +162,7 @@ className="group relative min-w-[140px] sm:min-w-[180px] md:min-w-[220px] lg:min
               </div>
             </div>
           ))}
-         
+
         </div>
       </div>
 

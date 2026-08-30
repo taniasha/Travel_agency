@@ -167,7 +167,7 @@ export default function HowDoYouTravel() {
       id="how-do-you-travel"
       className="bg-gray-50 pt-16 pb-5 lg:pb-0 px-4 sm:px-6 scroll-mt-[90px]"
     >
-      <div className="mx-auto max-w-7xl">
+      <div className="mx-auto">
         <h2 className="text-center text-5xl font-medium tracking-wider">
           DESIGNED AROUND YOU!
         </h2>

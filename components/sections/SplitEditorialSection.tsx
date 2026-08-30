@@ -6,8 +6,8 @@ export default function SplitEditorialSection(): JSX.Element {
     <section className="w-full bg-[#E3D3C9]">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2">
         {/* Image */}
-<div className="relative w-full h-[70vh] md:h-[70vh] lg:h-[90vh] lg:m-10 sm:m-6">
-            <Image
+        <div className="relative w-full h-[70vh] md:h-[70vh] lg:h-[90vh] lg:m-10 sm:m-6">
+          <Image
             src="/images/tree.webp"
             alt="Quiet travel moment"
             fill
