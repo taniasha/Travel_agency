@@ -3,29 +3,65 @@
 import Navbar from "@/components/Navbar";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function PackageClient({ pkg }) {
-  const similarPackages = pkg?.similarPackages || [];
+interface Section {
+  title1: string;
+  description1: string;
+  image1: string;
+}
+
+interface Hotel {
+  image: string;
+  name: string;
+  desc: string;
+}
+
+interface SimilarPackage {
+  slug: string;
+  packageSlug: string;
+  heroImage: string;
+  title: string;
+  heroMeta: {
+    country?: string;
+    duration: string;
+    headline: string;
+  };
+}
+
+interface PackageType {
+  title: string;
+  heroImage: string;
+  intro: string;
+  heroMeta: {
+    country: string;
+    headline: string;
+    when: string;
+    duration: string;
+    price: { label: string };
+  };
+  sections: Section[];
+  hotels: Hotel[];
+  similarPackages?: SimilarPackage[];
+}
+
+interface Props {
+  pkg: PackageType | null;
+}
+
+export default function PackageClient({ pkg }: Props) {
+  const similarPackages = pkg?.similarPackages ?? [];
   const [active, setActive] = useState(0);
   const [heroLoaded, setHeroLoaded] = useState(false);
-  const sectionRefs = useRef([]);
 
-  if (!pkg) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p className="text-2xl tracking-widest text-gray-400">Package not found</p>
-      </div>
-    );
-  }
-
+  // ✅ All hooks must come before any conditional return
   useEffect(() => {
     const sections = document.querySelectorAll(".story-section");
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const index = Array.from(sections).indexOf(entry.target);
+            const index = Array.from(sections).indexOf(entry.target as Element);
             setActive(index);
           }
         });
@@ -35,6 +71,14 @@ export default function PackageClient({ pkg }) {
     sections.forEach((sec) => observer.observe(sec));
     return () => observer.disconnect();
   }, []);
+
+  if (!pkg) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-2xl tracking-widest text-gray-400">Package not found</p>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-[#faf9f7] min-h-screen">
@@ -48,7 +92,9 @@ export default function PackageClient({ pkg }) {
           fill
           priority
           sizes="100vw"
-          className={`object-cover transition-opacity duration-700 ${heroLoaded ? "opacity-100" : "opacity-0"}`}
+          className={`object-cover transition-opacity duration-700 ${
+            heroLoaded ? "opacity-100" : "opacity-0"
+          }`}
           onLoad={() => setHeroLoaded(true)}
         />
 
@@ -61,11 +107,7 @@ export default function PackageClient({ pkg }) {
           {/* Country tag */}
           <div className="mb-6">
             <span
-              style={{
-                fontFamily: "'Brandon', sans-serif",
-                letterSpacing: "4px",
-                fontSize: "11px",
-              }}
+              style={{ fontFamily: "'Brandon', sans-serif", letterSpacing: "4px", fontSize: "11px" }}
               className="text-white/60 uppercase"
             >
               {pkg.heroMeta.country}
@@ -73,9 +115,7 @@ export default function PackageClient({ pkg }) {
           </div>
 
           {/* Headline */}
-          <h1
-            className="max-w-4xl text-4xl sm:text-5xl lg:text-6xl font-light text-white leading-[1.1] tracking-wide mb-10"
-          >
+          <h1 className="max-w-4xl text-4xl sm:text-5xl lg:text-6xl font-light text-white leading-[1.1] tracking-wide mb-10">
             {pkg.heroMeta.headline}
           </h1>
 
@@ -98,18 +138,13 @@ export default function PackageClient({ pkg }) {
 
         {/* Scroll indicator */}
         <div className="absolute bottom-8 right-8 sm:right-16 flex flex-col items-center gap-2">
-          <span className="text-white/30 text-[9px] tracking-[3px] uppercase rotate-90 origin-center mb-6">Scroll</span>
+          <span className="text-white/30 text-[9px] tracking-[3px] uppercase rotate-90 origin-center mb-6">
+            Scroll
+          </span>
           <div className="w-px h-16 bg-white/20 relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full bg-white/60 animate-[scrollLine_2s_ease-in-out_infinite]" style={{height:"40%", animation:"scrollLine 2s ease-in-out infinite"}} />
+            <div className="pkg-scroll-line absolute top-0 left-0 w-full h-[40%] bg-white/60" />
           </div>
         </div>
-
-        <style jsx>{`
-          @keyframes scrollLine {
-            0% { transform: translateY(-100%); }
-            100% { transform: translateY(300%); }
-          }
-        `}</style>
       </section>
 
       {/* ── INTRO STRIP ── */}
@@ -119,9 +154,9 @@ export default function PackageClient({ pkg }) {
           <p className="text-[10px] tracking-[4px] uppercase text-black/40">The Journey</p>
         </div>
         <div className="space-y-6 text-lg leading-[1.9] text-gray-600 font-light">
-          {pkg.intro.split("\n").map((line, i) => (
-            line.trim() && <p key={i}>{line}</p>
-          ))}
+          {pkg.intro.split("\n").map((line, i) =>
+            line.trim() ? <p key={i}>{line}</p> : null
+          )}
         </div>
       </section>
 
@@ -139,7 +174,11 @@ export default function PackageClient({ pkg }) {
                 className="story-section min-h-[90vh] flex flex-col justify-center py-20"
               >
                 <div
-                  className={`transition-all duration-500 ${active === index ? "opacity-100 translate-y-0" : "opacity-40 translate-y-2"}`}
+                  className={`transition-all duration-500 ${
+                    active === index
+                      ? "opacity-100 translate-y-0"
+                      : "opacity-40 translate-y-2"
+                  }`}
                 >
                   <p className="text-[10px] tracking-[4px] uppercase text-black/30 mb-6">
                     Chapter {String(index + 1).padStart(2, "0")}
@@ -149,9 +188,9 @@ export default function PackageClient({ pkg }) {
                   </h2>
                   <div className="w-10 h-px bg-gray-300 mb-8" />
                   <div className="text-[15px] leading-[1.9] text-gray-500 font-light space-y-4">
-                    {section.description1.split("\n").map((line, i) => (
-                      line.trim() && <p key={i}>{line}</p>
-                    ))}
+                    {section.description1.split("\n").map((line, i) =>
+                      line.trim() ? <p key={i}>{line}</p> : null
+                    )}
                   </div>
                 </div>
               </div>
@@ -168,15 +207,17 @@ export default function PackageClient({ pkg }) {
                 {pkg.sections.map((section, index) => (
                   <div
                     key={index}
-                    className={`absolute inset-0 transition-opacity duration-700 ${active === index ? "opacity-100" : "opacity-0"}`}
+                    className={`absolute inset-0 transition-opacity duration-700 ${
+                      active === index ? "opacity-100" : "opacity-0"
+                    }`}
                   >
                     <Image
                       src={section.image1}
                       alt={section.title1}
                       fill
                       sizes="45vw"
-                      loading={index === 0 ? undefined : "lazy"}
                       priority={index === 0}
+                      loading={index === 0 ? undefined : "lazy"}
                       className="object-cover"
                     />
                   </div>
@@ -184,7 +225,8 @@ export default function PackageClient({ pkg }) {
 
                 {/* Image counter */}
                 <div className="absolute bottom-6 right-6 text-white/60 text-xs tracking-widest">
-                  {String(active + 1).padStart(2, "0")} / {String(pkg.sections.length).padStart(2, "0")}
+                  {String(active + 1).padStart(2, "0")} /{" "}
+                  {String(pkg.sections.length).padStart(2, "0")}
                 </div>
               </div>
             </div>
@@ -208,7 +250,9 @@ export default function PackageClient({ pkg }) {
               <p className="text-[9px] tracking-[4px] uppercase text-black/30 mb-4">
                 Chapter {String(index + 1).padStart(2, "0")}
               </p>
-              <h2 className="text-2xl font-light tracking-wide text-gray-900 mb-4">{section.title1}</h2>
+              <h2 className="text-2xl font-light tracking-wide text-gray-900 mb-4">
+                {section.title1}
+              </h2>
               <div className="w-8 h-px bg-gray-300 mb-6" />
               <p className="text-sm leading-relaxed text-gray-500">{section.description1}</p>
             </div>
@@ -219,8 +263,6 @@ export default function PackageClient({ pkg }) {
       {/* ── HOTELS ── */}
       <section className="bg-[#f5f3ef] py-24 lg:py-32 px-6 lg:px-16">
         <div className="max-w-7xl mx-auto">
-
-          {/* Header */}
           <div className="flex items-center gap-8 mb-16 lg:mb-24">
             <div className="w-12 h-px bg-black/20" />
             <p className="text-[10px] tracking-[4px] uppercase text-black/40">Where You Stay</p>
@@ -241,7 +283,6 @@ export default function PackageClient({ pkg }) {
                     loading="lazy"
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  {/* Index number overlay */}
                   <div className="absolute top-4 left-4 w-8 h-8 bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center">
                     <span className="text-white text-[10px] tracking-widest">
                       {String(index + 1).padStart(2, "0")}
@@ -276,7 +317,7 @@ export default function PackageClient({ pkg }) {
             </div>
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {similarPackages.map((trip, idx) => (
+              {similarPackages.map((trip) => (
                 <Link
                   key={trip.packageSlug}
                   href={`/experience-types/destination/${trip.slug}/packages/${trip.packageSlug}`}
@@ -290,18 +331,12 @@ export default function PackageClient({ pkg }) {
                     loading="lazy"
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-
-                  {/* Gradient */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
-
-                  {/* Duration pill */}
                   <div className="absolute top-5 right-5">
                     <span className="text-[9px] tracking-[2px] uppercase text-white/70 border border-white/20 px-3 py-1 backdrop-blur-sm">
                       {trip.heroMeta?.duration}
                     </span>
                   </div>
-
-                  {/* Content */}
                   <div className="absolute bottom-0 left-0 right-0 p-6">
                     <p className="text-white/40 text-[9px] tracking-[3px] uppercase mb-2">
                       {trip.heroMeta?.country}
@@ -331,23 +366,12 @@ export default function PackageClient({ pkg }) {
           className="object-cover"
         />
         <div className="absolute inset-0 bg-black/50" />
-
         <div className="relative text-center text-white px-6 z-10">
           <p className="text-[10px] tracking-[5px] uppercase text-white/50 mb-6">The next step</p>
-          <h2 className="text-4xl lg:text-6xl font-light tracking-wide mb-10">
-            Ready to Begin?
-          </h2>
+          <h2 className="text-4xl lg:text-6xl font-light tracking-wide mb-10">Ready to Begin?</h2>
           <Link
             href="/enquiry"
-            className="
-              inline-block
-              border border-white/40
-              px-10 py-4
-              text-[11px] tracking-[3px] uppercase
-              text-white
-              hover:bg-white hover:text-black
-              transition-all duration-400
-            "
+            className="inline-block border border-white/40 px-10 py-4 text-[11px] tracking-[3px] uppercase text-white hover:bg-white hover:text-black transition-all duration-300"
           >
             Start Planning
           </Link>
